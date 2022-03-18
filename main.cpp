@@ -293,6 +293,7 @@ bool offb_ctrl_body(mavsdk::Offboard& offboard)
     sleep_for(seconds(3));
 
     double velocity_vector_angle = 120.0;
+    std::cout << "1";
     double yaw_change_rate = 0.0;
     double degisen_yaw = 0.0;
     double velocity_vector_magnitude = 0.00;
