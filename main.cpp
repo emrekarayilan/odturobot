@@ -1,8 +1,11 @@
-//
-// Example that demonstrates offboard control using attitude, velocity control
-// in NED (North-East-Down), and velocity control in body (Forward-Right-Down)
-// coordinates.
-//
+/*
+   * 18.ODTÜ Robot Günleri için yazılmıştır.
+   * Buraya Bakarlar Takımı
+   * Otopilot Kategorisi
+   * Emre Taha Karayılan tarafından yazılmıştır.
+   * emretahakarayilan@gmail.com
+*/
+
 
 #include <chrono>
 #include <cmath>
@@ -71,6 +74,9 @@ void reset_velocity(int t,mavsdk::Offboard& offboard)
     sleep_for(seconds(t));
 
 }
+
+
+
 double degree_to_radian(double degree){
 
     double radian = 0.0;
@@ -95,155 +101,174 @@ bool offb_ctrl_body(mavsdk::Offboard& offboard)
     }
     std::cout << "Offboard started\n";
 
+    /*
     std::cout << "North'a donuyorum \n";
 
     Offboard::VelocityBodyYawspeed turning_north_sitl{};
-    turning_north_sitl.yawspeed_deg_s = -31.0f;
-    turning_north_sitl.down_m_s = -0.66f;
+    turning_north_sitl.yawspeed_deg_s = -30.0f;
+    //turning_north_sitl.down_m_s = -0.17f;
     offboard.set_velocity_body(turning_north_sitl);
     sleep_for(seconds(3));
-    reset_velocity(2,offboard);
+    reset_velocity(1,offboard);
 
-
-    /*
-    for(int i; i<250; i++){
-
-        Offboard::VelocityBodyYawspeed cube_edge_1{};  //1
-        cube_edge_1.forward_m_s = 2.5f;
-        offboard.set_velocity_body(cube_edge_1);
-        sleep_for(milliseconds(10));
-        mavsdk::Telemetry::VelocityBody cube_edge_velocity;
-        std::cout << " Velocity is : " << cube_edge_velocity << std::endl;
+     */
 
 
 
-    } */
     float cube_vector_magnitude = 2.5f;
-    int cube_edge_time = 2;
+    int cube_edge_time = 2000; //in milliseconds
+
+    //setting cube start position
+    std::cout << "Going to cube start position\n";
+    Offboard:: VelocityBodyYawspeed cube_start{};
+    cube_start.forward_m_s = 0.2f;
+    cube_start.right_m_s = 0.5f;
+    cube_start.down_m_s = -0.75f;
+    offboard.set_velocity_body(cube_start);
+    sleep_for(seconds(2));
+    reset_velocity(1,offboard);
+
+    // Starting Cube
+    std::cout << "Starting cube\n";
 
     Offboard::VelocityBodyYawspeed cube_edge_1{}; //1
     cube_edge_1.forward_m_s = cube_vector_magnitude;
     offboard.set_velocity_body(cube_edge_1);
-    sleep_for(seconds(cube_edge_time));
+    sleep_for(milliseconds (cube_edge_time));
     reset_velocity(1,offboard);
     std::cout << "Edge 1 bitti\n";
+
 
 
     Offboard::VelocityBodyYawspeed cube_edge_2{}; //2
     cube_edge_2.right_m_s = cube_vector_magnitude;
     offboard.set_velocity_body(cube_edge_2);
-    sleep_for(seconds(cube_edge_time));
+    sleep_for(milliseconds (cube_edge_time));
     reset_velocity(1,offboard);
     std::cout << "Edge 2 bitti\n";
 
     Offboard::VelocityBodyYawspeed cube_edge_3{};  //3
     cube_edge_3.forward_m_s = - cube_vector_magnitude;
     offboard.set_velocity_body(cube_edge_3);
-    sleep_for(seconds(cube_edge_time));
+    sleep_for(milliseconds(cube_edge_time));
     reset_velocity(1,offboard);
     std::cout << "Edge 3 bitti\n";
 
     Offboard::VelocityBodyYawspeed cube_edge_4{};  //4
     cube_edge_4.right_m_s = -cube_vector_magnitude;
     offboard.set_velocity_body(cube_edge_4);
-    sleep_for(seconds(cube_edge_time));
+    sleep_for(milliseconds (cube_edge_time));
     reset_velocity(1,offboard);
     std::cout << "Edge 4 bitti\n";
 
     Offboard::VelocityBodyYawspeed cube_edge_5{};  //5
     cube_edge_5.down_m_s = -cube_vector_magnitude;
     offboard.set_velocity_body(cube_edge_5);
-    sleep_for(seconds(cube_edge_time));
+    sleep_for(milliseconds(cube_edge_time));
     reset_velocity(1,offboard);
     std::cout << "Edge 5 bitti yukari ciktim\n";
 
     Offboard::VelocityBodyYawspeed cube_edge_6{};  //6
     cube_edge_6.forward_m_s = cube_vector_magnitude;
     offboard.set_velocity_body(cube_edge_6);
-    sleep_for(seconds(cube_edge_time));
+    sleep_for(milliseconds(cube_edge_time+50));
     reset_velocity(1,offboard);
     std::cout << "Edge 6 bitti\n";
 
     Offboard::VelocityBodyYawspeed cube_edge_7{};  //7
     cube_edge_7.right_m_s = cube_vector_magnitude;
     offboard.set_velocity_body(cube_edge_7);
-    sleep_for(seconds(cube_edge_time));
+    sleep_for(milliseconds(cube_edge_time));
     reset_velocity(1,offboard);
     std::cout << "Edge 7 bitti\n";
 
     Offboard::VelocityBodyYawspeed cube_edge_8{};  //8
     cube_edge_8.forward_m_s = -cube_vector_magnitude;
     offboard.set_velocity_body(cube_edge_8);
-    sleep_for(seconds(cube_edge_time));
+    sleep_for(milliseconds(cube_edge_time));
     reset_velocity(1,offboard);
     std::cout << "Edge 8 bitti\n";
 
     Offboard::VelocityBodyYawspeed cube_edge_9{};  //9
     cube_edge_9.right_m_s = -cube_vector_magnitude;
     offboard.set_velocity_body(cube_edge_9);
-    sleep_for(seconds(cube_edge_time));
+    sleep_for(milliseconds(cube_edge_time+50));
     reset_velocity(2,offboard);
     std::cout << "Edge 9 bitti\n";
 
     Offboard::VelocityBodyYawspeed cube_edge_10{};  //10
     cube_edge_10.right_m_s = cube_vector_magnitude;
     offboard.set_velocity_body(cube_edge_10);
-    sleep_for(seconds(cube_edge_time));
+    sleep_for(milliseconds(cube_edge_time));
     reset_velocity(1,offboard);
     std::cout << "Edge 10 bitti\n";
 
     Offboard::VelocityBodyYawspeed cube_edge_11{};  //11
     cube_edge_11.down_m_s = cube_vector_magnitude;
     offboard.set_velocity_body(cube_edge_11);
-    sleep_for(seconds(cube_edge_time));
+    sleep_for(milliseconds(cube_edge_time));
     reset_velocity(1,offboard);
     std::cout << "Edge 11 bitti\n";
 
     Offboard::VelocityBodyYawspeed cube_edge_12{};  //12
     cube_edge_12.forward_m_s = cube_vector_magnitude;
     offboard.set_velocity_body(cube_edge_12);
-    sleep_for(seconds(cube_edge_time));
+    sleep_for(milliseconds(cube_edge_time));
     reset_velocity(1,offboard);
     std::cout << "Edge 12 bitti\n";
 
     Offboard::VelocityBodyYawspeed cube_edge_13{};  //13
     cube_edge_13.down_m_s = -cube_vector_magnitude;
     offboard.set_velocity_body(cube_edge_13);
-    sleep_for(seconds(cube_edge_time));
+    sleep_for(milliseconds(cube_edge_time));
     reset_velocity(1,offboard);
     std::cout << "Edge 13 bitti\n";
 
     Offboard::VelocityBodyYawspeed cube_edge_14{};  //14
     cube_edge_14.right_m_s = -cube_vector_magnitude;
     offboard.set_velocity_body(cube_edge_14);
-    sleep_for(seconds(cube_edge_time));
+    sleep_for(milliseconds (cube_edge_time));
     reset_velocity(1,offboard);
     std::cout << "Edge 14 bitti\n";
 
     Offboard::VelocityBodyYawspeed cube_edge_15{};  //15
     cube_edge_15.down_m_s= cube_vector_magnitude;
     offboard.set_velocity_body(cube_edge_15);
-    sleep_for(seconds(cube_edge_time));
-    reset_velocity(1,offboard);
+    sleep_for(milliseconds(cube_edge_time));
+    reset_velocity(2,offboard);
     std::cout << "Edge 15 bitti\n";
 
     Offboard::VelocityBodyYawspeed cube_edge_16{};  //16
-    cube_edge_16.forward_m_s = -cube_vector_magnitude;
+    cube_edge_16.forward_m_s= -cube_vector_magnitude;
     offboard.set_velocity_body(cube_edge_16);
-    sleep_for(seconds(cube_edge_time));
-    reset_velocity(1,offboard);
+    sleep_for(milliseconds(cube_edge_time));
+    reset_velocity(2,offboard);
     std::cout << "Edge 16 bitti\n";
 
-    Offboard::VelocityBodyYawspeed after_cube_up{};  //triangle start position setup
-    after_cube_up.down_m_s = -1.5f;
-    offboard.set_velocity_body(after_cube_up);
+    // Setting triangle start position
+
+    Offboard::VelocityBodyYawspeed triangle_start{};
+    triangle_start.forward_m_s = 0.2f;
+    triangle_start.right_m_s = 0.2f;
+    triangle_start.down_m_s = -2.0f;
+    offboard.set_velocity_body(triangle_start);
+    sleep_for(seconds(1));
+    reset_velocity(1,offboard);
+    std::cout << "\n";
+
+    std::cout << "Sleep for 5 seconds" << std::endl;
     sleep_for(seconds(2));
+    /*
+    Offboard::VelocityBodyYawspeed after_cube_up{};  //triangle start position setup
+    after_cube_up.down_m_s = -1.0f;
+    offboard.set_velocity_body(after_cube_up);
+    sleep_for(milliseconds(2));
     reset_velocity(1,offboard);
     std::cout << "Ucgen icin yukseliyorum \n";
 
-    sleep_for(seconds (5));
+    sleep_for(seconds (3));
+    */
 
-    std::cout << "North'a donuyorum \n";
 
     /*
     Offboard::VelocityBodyYawspeed turning_north_sitl{};
@@ -253,10 +278,14 @@ bool offb_ctrl_body(mavsdk::Offboard& offboard)
     reset_velocity(2,offboard);
     */
 
+
+
+
     std::cout << "Turning 60 degree\n";
 
     Offboard::VelocityBodyYawspeed turning_sixty{};
-    turning_sixty.yawspeed_deg_s = 31.0f;
+    turning_sixty.yawspeed_deg_s = 30.0f;
+    //turning_sixty.down_m_s = -1.0f;
     offboard.set_velocity_body(turning_sixty);
     sleep_for(seconds(2));
     reset_velocity(1,offboard);
@@ -267,8 +296,8 @@ bool offb_ctrl_body(mavsdk::Offboard& offboard)
     double yaw_change_rate = 0.0;
     double degisen_yaw = 0.0;
     double velocity_vector_magnitude = 0.00;
-    double error = 1;
-    for (int i=0; i<10;i++)
+    double error = 1.011111111;
+    for (int i=0; i<18;i++)
     {
 
         for(int j=0; j<3;j++)
@@ -278,16 +307,16 @@ bool offb_ctrl_body(mavsdk::Offboard& offboard)
             reset_velocity(1,offboard);
             double t = 0.00;
             auto start = std::chrono::high_resolution_clock::now();
-            for(int k=0; k<500;k++)
+            for(int k=0; k<200;k++)
             {
 
-                velocity_vector_magnitude = sqrt(pow(sin(degree_to_radian(velocity_vector_angle)),2)+ pow(cos(
+                velocity_vector_magnitude = 2.5 * sqrt(pow(sin(degree_to_radian(velocity_vector_angle)),2)+ pow(cos(
                         degree_to_radian(velocity_vector_angle)),2));
                 std::cout << "Velocity vector magnitude" << velocity_vector_magnitude << std::endl;
 
                 yaw_change_rate = (-0.08024* pow(t*velocity_vector_magnitude,7) + 1.02228* pow(t*velocity_vector_magnitude,6) - 4.2732 * pow(t*velocity_vector_magnitude,5) + 5.5667 * pow(t*velocity_vector_magnitude,4) + 1.02768 * pow(t*velocity_vector_magnitude,3) + 0.41919 * pow(t*velocity_vector_magnitude,2) + 3.56804 * (t*velocity_vector_magnitude) + 11.12216)*velocity_vector_magnitude*error;
 
-                velocity_vector_angle = velocity_vector_angle + (yaw_change_rate/100);
+                velocity_vector_angle = velocity_vector_angle + (yaw_change_rate/(100));
 
                 std::cout << "velocity vector angle: " << velocity_vector_angle << "  " <<  velocity_vector_magnitude * sin(
                         degree_to_radian(velocity_vector_angle))  << "  " <<  velocity_vector_magnitude * cos(degree_to_radian(velocity_vector_angle)) << "  " <<  0 << "  " << "Yaw change rate " << yaw_change_rate << "  " << degisen_yaw << std::endl ;
@@ -308,9 +337,9 @@ bool offb_ctrl_body(mavsdk::Offboard& offboard)
             auto stop = std::chrono::high_resolution_clock::now();
             auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
             std::cout << "Time taken by function: "
-                 << duration.count() << " microseconds" << std::endl;
+                      << duration.count() << " microseconds" << std::endl;
 
-            error = error - 0.003;
+            error = error - 0.0001;
 
 
         }
@@ -321,47 +350,8 @@ bool offb_ctrl_body(mavsdk::Offboard& offboard)
 
     reset_velocity(1,offboard);
 
-    sleep_for(seconds(100));
+    sleep_for(seconds(4));
 
-    /*
-    Offboard::VelocityBodyYawspeed cc_and_climb{};
-    cc_and_climb.down_m_s = -1.0f;
-    cc_and_climb.yawspeed_deg_s = 60.0f;
-    offboard.set_velocity_body(cc_and_climb);
-    sleep_for(seconds(5));
-
-    std::cout << "Turn back anti-clockwise\n";
-    Offboard::VelocityBodyYawspeed ccw{};
-    ccw.down_m_s = -1.0f;
-    ccw.yawspeed_deg_s = -60.0f;
-    offboard.set_velocity_body(ccw);
-    sleep_for(seconds(5));
-
-    std::cout << "Wait for a bit\n";
-    offboard.set_velocity_body(stay);
-    sleep_for(seconds(2));
-
-    std::cout << "Fly a circle\n";
-    Offboard::VelocityBodyYawspeed circle{};
-    circle.forward_m_s = 5.0f;
-    circle.yawspeed_deg_s = 30.0f;
-    offboard.set_velocity_body(circle);
-    sleep_for(seconds(15));
-
-    std::cout << "Wait for a bit\n";
-    offboard.set_velocity_body(stay);
-    sleep_for(seconds(5));
-
-    std::cout << "Fly a circle sideways\n";
-    circle.right_m_s = -5.0f;
-    circle.yawspeed_deg_s = 30.0f;
-    offboard.set_velocity_body(circle);
-    sleep_for(seconds(15));
-
-    std::cout << "Wait for a bit\n";
-    offboard.set_velocity_body(stay);
-    sleep_for(seconds(8));
-    */
     offboard_result = offboard.stop();
     if (offboard_result != Offboard::Result::Success) {
         std::cerr << "Offboard stop failed: " << offboard_result << '\n';
@@ -429,7 +419,7 @@ int main(int argc, char** argv)
             in_air_promise.set_value();
         }
     });
-    in_air_future.wait_for(seconds(15));
+    in_air_future.wait_for(seconds(10));
     if (in_air_future.wait_for(seconds(3)) == std::future_status::timeout) {
         std::cerr << "Takeoff timed out.\n";
         return 1;
@@ -443,7 +433,7 @@ int main(int argc, char** argv)
 
 
 
-    const auto land_result = action.land();
+    const auto land_result = action.return_to_launch();
     if (land_result != Action::Result::Success) {
         std::cerr << "Landing failed: " << land_result << '\n';
         return 1;
