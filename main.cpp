@@ -101,18 +101,6 @@ bool offb_ctrl_body(mavsdk::Offboard& offboard)
     }
     std::cout << "Offboard started\n";
 
-    /*
-    std::cout << "North'a donuyorum \n";
-
-    Offboard::VelocityBodyYawspeed turning_north_sitl{};
-    turning_north_sitl.yawspeed_deg_s = -30.0f;
-    //turning_north_sitl.down_m_s = -0.17f;
-    offboard.set_velocity_body(turning_north_sitl);
-    sleep_for(seconds(3));
-    reset_velocity(1,offboard);
-
-     */
-
 
 
     float cube_vector_magnitude = 2.5f;
@@ -121,8 +109,8 @@ bool offb_ctrl_body(mavsdk::Offboard& offboard)
     //setting cube start position
     std::cout << "Going to cube start position\n";
     Offboard:: VelocityBodyYawspeed cube_start{};
-    cube_start.forward_m_s = 0.2f;
-    cube_start.right_m_s = 0.5f;
+    cube_start.forward_m_s = 0.35f;
+    cube_start.right_m_s = 0.2f;
     cube_start.down_m_s = -0.75f;
     offboard.set_velocity_body(cube_start);
     sleep_for(seconds(2));
@@ -248,8 +236,8 @@ bool offb_ctrl_body(mavsdk::Offboard& offboard)
     // Setting triangle start position
 
     Offboard::VelocityBodyYawspeed triangle_start{};
-    triangle_start.forward_m_s = 0.2f;
-    triangle_start.right_m_s = 0.2f;
+    triangle_start.forward_m_s = 0.3f;
+    triangle_start.right_m_s = 0.3f;
     triangle_start.down_m_s = -2.0f;
     offboard.set_velocity_body(triangle_start);
     sleep_for(seconds(1));
@@ -258,27 +246,6 @@ bool offb_ctrl_body(mavsdk::Offboard& offboard)
 
     std::cout << "Sleep for 5 seconds" << std::endl;
     sleep_for(seconds(2));
-    /*
-    Offboard::VelocityBodyYawspeed after_cube_up{};  //triangle start position setup
-    after_cube_up.down_m_s = -1.0f;
-    offboard.set_velocity_body(after_cube_up);
-    sleep_for(milliseconds(2));
-    reset_velocity(1,offboard);
-    std::cout << "Ucgen icin yukseliyorum \n";
-
-    sleep_for(seconds (3));
-    */
-
-
-    /*
-    Offboard::VelocityBodyYawspeed turning_north_sitl{};
-    turning_north_sitl.yawspeed_deg_s = -31.0f;
-    offboard.set_velocity_body(turning_north_sitl);
-    sleep_for(seconds(3));
-    reset_velocity(2,offboard);
-    */
-
-
 
 
     std::cout << "Turning 60 degree\n";
@@ -293,7 +260,6 @@ bool offb_ctrl_body(mavsdk::Offboard& offboard)
     sleep_for(seconds(3));
 
     double velocity_vector_angle = 120.0;
-    std::cout << "1";
     double yaw_change_rate = 0.0;
     double degisen_yaw = 0.0;
     double velocity_vector_magnitude = 0.00;
