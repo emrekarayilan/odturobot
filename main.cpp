@@ -236,8 +236,8 @@ bool offb_ctrl_body(mavsdk::Offboard& offboard)
     // Setting triangle start position
 
     Offboard::VelocityBodyYawspeed triangle_start{};
-    triangle_start.forward_m_s = 0.3f;
-    triangle_start.right_m_s = 0.3f;
+    triangle_start.forward_m_s = 0.35f;
+    triangle_start.right_m_s = 0.35f;
     triangle_start.down_m_s = -2.0f;
     offboard.set_velocity_body(triangle_start);
     sleep_for(seconds(1));
