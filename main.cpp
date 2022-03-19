@@ -338,6 +338,8 @@ int main(int argc, char** argv)
         return 1;
     }
 
+    std::cout << "debug" << std::endl;
+
     Mavsdk mavsdk;
     ConnectionResult connection_result = mavsdk.add_any_connection(argv[1]);
 
