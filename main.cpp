@@ -236,7 +236,7 @@ bool offb_ctrl_body(mavsdk::Offboard& offboard)
     // Setting triangle start position
 
     Offboard::VelocityBodyYawspeed triangle_start{};
-    triangle_start.forward_m_s = 0.35f;
+    triangle_start.forward_m_s = 0.25f;
     triangle_start.right_m_s = 0.35f;
     triangle_start.down_m_s = -2.0f;
     offboard.set_velocity_body(triangle_start);
@@ -263,7 +263,7 @@ bool offb_ctrl_body(mavsdk::Offboard& offboard)
     double yaw_change_rate = 0.0;
     double degisen_yaw = 0.0;
     double velocity_vector_magnitude = 0.00;
-    double error = 1.011111111;
+    double error = 1.008111111;
     for (int i=0; i<18;i++)
     {
 
@@ -281,7 +281,7 @@ bool offb_ctrl_body(mavsdk::Offboard& offboard)
                         degree_to_radian(velocity_vector_angle)),2));
                 std::cout << "Velocity vector magnitude" << velocity_vector_magnitude << std::endl;
 
-                yaw_change_rate = (-0.08024* pow(t*velocity_vector_magnitude,7) + 1.02228* pow(t*velocity_vector_magnitude,6) - 4.2732 * pow(t*velocity_vector_magnitude,5) + 5.5667 * pow(t*velocity_vector_magnitude,4) + 1.02768 * pow(t*velocity_vector_magnitude,3) + 0.41919 * pow(t*velocity_vector_magnitude,2) + 3.56804 * (t*velocity_vector_magnitude) + 11.12216)*velocity_vector_magnitude*error;
+                yaw_change_rate = (-0.08024* pow(t*velocity_vector_magnitude,7) + 1.02228* pow(t*velocity_vector_magnitude,6) - 4.2732 * pow(t*velocity_vector_magnitude,5) + 5.5667 * pow(t*velocity_vector_magnitude,4) + 1.02768 * pow(t*velocity_vector_magnitude,3) + 0.41919 * pow(t*velocity_vector_magnitude,2) + 3.56804 * (t*velocity_vector_magnitude) + 11.12216)*error*velocity_vector_magnitude;
 
                 velocity_vector_angle = velocity_vector_angle + (yaw_change_rate/(100));
 
@@ -306,7 +306,7 @@ bool offb_ctrl_body(mavsdk::Offboard& offboard)
             std::cout << "Time taken by function: "
                       << duration.count() << " microseconds" << std::endl;
 
-            error = error - 0.0001;
+            error = error - 0.0004;
 
 
         }
